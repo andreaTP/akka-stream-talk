@@ -44,7 +44,9 @@
           - What are streams
           - Challenges solved using streams
           - Advantages in stream application
-          - Akka Stream!
+          - Akka Stream
+          - Understanding Akka Stream
+          - more ...
           </script>
         </section>
 
@@ -80,7 +82,7 @@
           ###Akka Stream
           
           - Module on top of Akka to make the ingestion and processing of streams easier
-          - Provide a way to handle unbounded stream with bounded buffer
+          - Provide a way to handle unbounded stream with bounded buffers
           - A nice DSL for describing stream processing
           </script>
         </section>
@@ -89,7 +91,7 @@
           <script type="text/template">
           ###Basic concepts
           
-          |__Source__| -> |__Flow__| -> |__Sink__|
+          |__Source__| ~> |__Flow__| ~> |__Sink__|
           </script>
         </section>
 
@@ -106,7 +108,7 @@
           <script type="text/template">
           ###Demo
 
-          https://scalafiddle.io/sf/cPa2mTt/8
+          https://scalafiddle.io/sf/cPa2mTt/6
           </script>
         </section>
         
@@ -124,7 +126,7 @@
           <script type="text/template">
           ###Demo
 
-          https://scalafiddle.io/sf/cPa2mTt/6
+          https://scalafiddle.io/sf/cPa2mTt/8
           </script>
         </section>
 
@@ -206,7 +208,7 @@
           <script type="text/template">
           ###More important leftovers
 
-          - [Akka Http](https://github.com/akka/akka-http)
+          - [Akka Http](https://github.com/akka/akka-http/blob/master/akka-http-core/src/main/scala/akka/http/impl/engine/server/HttpServerBluePrint.scala)
           - [Alpakka](https://github.com/akka/alpakka)
           </script>
         </section>
