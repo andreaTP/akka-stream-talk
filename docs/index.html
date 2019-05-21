@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Akka Stream</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+    <!-- <link rel="stylesheet" href="css/theme/black.css"> -->
+    <link rel="stylesheet" href="css/theme/night.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <script src="plugin/highlight/highlight.js"></script>
+    <!-- Mermaid Diagrams -->
+    <!--<link rel="stylesheet" href="css/mermaid.dark.css">
+    <script src="lib/js/mermaid.min.js"></script>-->
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+    <div class="reveal">
+      <div class="slides">
+
+        <section data-markdown>
+          <script type="text/template">
+          ##Akka Stream 101 for the busy developer
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Agenda
+          
+          - What are streams
+          - Challenges solved using streams
+          - Advantages in stream application
+          - Akka Stream!
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###What are Streams ???
+         
+          Stream of elements that could have not end.
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Challenges solved using streams
+
+          - Data is produced at any time in any quantity
+          - Producer and Consumer can have different speeds
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Advantages in stream application
+
+          - __Bounded Memory Usage__: never read all elements into memory
+          - __Asynchronous Non Blocking__: Resources should be used efficiently
+          - __Varying Speed__: Producer and consumer should be able to operate on different speed
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Akka Stream
+          
+          - Module on top of Akka to make the ingestion and processing of streams easier
+          - Provide a way to handle unbounded stream with bounded buffer
+          - A nice DSL for describing stream processing
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Basic concepts
+          
+          |__Source__| -> |__Flow__| -> |__Sink__|
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Foundation
+
+          - __Blueprint__ : A graph of streaming components. The graph define how stream need to processed. 
+          - __Execution__ : Run the graph on an ActorSystem. The graph is turned into actors that do all the work required to actually stream the data.
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Demo
+
+          https://scalafiddle.io/sf/cPa2mTt/8
+          </script>
+        </section>
+        
+        <section data-markdown>
+          <script type="text/template">
+          ###Materializer
+
+          - Configurable options on how to run the stream
+          - Decide the dispatcher to be used
+          - Converts a RunnableGraph into *Actors* to actually run the graph
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Demo
+
+          https://scalafiddle.io/sf/cPa2mTt/6
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Combining with toMat
+
+          - Keep.left -> https://scalafiddle.io/sf/cPa2mTt/9
+          - Keep.right -> https://scalafiddle.io/sf/cPa2mTt/10
+          - Keep.both -> https://scalafiddle.io/sf/cPa2mTt/11
+          </script>
+        </section>
+        
+        <section data-markdown>
+          <script type="text/template">
+          ###Backpressure
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Backpressure
+
+          tl;dr
+
+          Push - Pull
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Operator Fusion
+          
+          Operator Fusion is used to performance optimization to mitigate the cost of passing elements between the different stages.
+          
+          Two main consequences are:
+            1. Passing elements fused stages faster
+            2. Fused stages no longer run in parallel (1 CPU)
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Operator Fusion demo
+          
+          https://scalafiddle.io/sf/cPa2mTt/12
+          </script>
+        </section>
+        
+        <section data-markdown>
+          <script type="text/template">
+          ###Operator Fusion
+          
+          How to enable parallelism?
+
+           - Using `async`
+           - Turn off auto-fusing
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Graph DSL Demo
+          
+          https://scalafiddle.io/sf/cPa2mTt/13
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###Leftovers
+
+          - Testing
+          - Typed interaction
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###More important leftovers
+
+          - [Akka Http](https://github.com/akka/akka-http)
+          - [Alpakka](https://github.com/akka/alpakka)
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+          ###In Codacy in production
+
+          - Async communication handling (e.g. RabbitMq)
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            You ~> Codacy ~> Hire!
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ###Thanks
+            ---
+            Q&A
+          </script>
+        </section>
+      </div>
+    </div>
+     <script src="lib/js/head.min.js"></script>
+     <script src="js/reveal.js"></script>
+     <script>
+       hljs.initHighlightingOnLoad();
+       //mermaid.initialize({startOnLoad:true});
+       // More info https://github.com/hakimel/reveal.js#configuration
+       Reveal.initialize({
+         history: true,
+
+         // More info https://github.com/hakimel/reveal.js#dependencies
+         dependencies: [
+           { src: 'plugin/markdown/marked.js' },
+           { src: 'plugin/markdown/markdown.js' },
+           { src: 'plugin/notes/notes.js', async: true },
+           { src: './plugin/externalcode/externalcode.js', condition: function() { return !!document.querySelector( '[data-code]' ); } }
+         ]
+       });
+       //Reveal.configure({ slideNumber: 'c/t' });
+     </script>
+	</body>
+</html>
